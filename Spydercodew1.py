@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#! /usr/bin/env python
 """
 Spyder Editor
 Marcus U. B. 
@@ -31,6 +31,7 @@ plt.title('test')
 plt.xlabel('Theta (Degrees)')
 plt.ylabel('Jy')
 plt.plot(horz,emp)
-plt.axis([0,180,149.98,150.02])
+#plt.axis([0,180,149.98,150.02])
 
+plt.show()
 #To expand it to 2 or 3 repeaded the forloop and combined the array
