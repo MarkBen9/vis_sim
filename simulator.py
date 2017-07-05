@@ -1,3 +1,8 @@
+"""
+Created on Tue Jun 27 13:47:35 2017
+
+@author: champ4
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -25,5 +30,12 @@ class Source:
                              [-np.sin(lat), 0, np.cos(lat)],
                              [ np.cos(lat), 0, np.sin(lat)]])
         xyz_top = np.dot(M_eq2top, xyz_eq)
-        return xyz_top
         
+        return xyz_top
+    
+  def measurement_eq(self, antenna1 ,antenna2, lst, lat):
+        
+        t= np.array(antenna1) - np.array(antenna2)   
+        x = self.jansky*((self.mfreq*1e6)/(150.0e6))**(self.index)*np.exp(-2j*np.pi*np.dot(t,self.get_source_vector(lst,lat))*self.mfreq*1e6/(3e8))
+        
+        return x
