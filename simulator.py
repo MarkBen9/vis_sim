@@ -1,8 +1,3 @@
-"""
-Created on Tue Jun 27 13:47:35 2017
-
-@author: champ4
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,13 +8,14 @@ def measurement_eq(A, I, s, bls, fqs):
     I: (s,fq) 2-dim array
     bls: (baselines,xyz)
     s: (sky position,xyz)'''
-    b_s = np.dot(bls, s.T).T
+    b_s = np.array(np.dot(bls, np.array(s).T)).T
     b_s.shape = (b_s[0],1,b_s[1]) # shape is (s,fq,bl)
     fqs.shape = (1,fqs.size,1)
     A.shape = A.shape + (1,)
     I.shape = I.shape + (1,)
-    V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s, axis=0).T
-    return V # shape is (bls,fqs)
+    V = np.array(np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s, axis=0))).T
+    return V 
+# shape is (bls,fqs)
 
 class Source:
     def __init__(self, ra, dec, jansky=100., index=-1., mfreq=150.):
@@ -48,7 +44,7 @@ class Source:
         
         return xyz_top
     
-  def measurement_eq(self, antenna1 ,antenna2, lst, lat):
+    def measurement_eq(self, antenna1 ,antenna2, lst, lat):
         
         t= np.array(antenna1) - np.array(antenna2)   
         x = self.jansky*((self.mfreq*1e6)/(150.0e6))**(self.index)*np.exp(-2j*np.pi*np.dot(t,self.get_source_vector(lst,lat))*self.mfreq*1e6/(3e8))
