@@ -6,6 +6,21 @@ Created on Tue Jun 27 13:47:35 2017
 import numpy as np
 import matplotlib.pyplot as plt
 
+C = 3.0e8 # speed of light in m/s
+
+def measurement_eq(A, I, s, bls, fqs):
+    '''A: (s,fq) 2-dim array
+    I: (s,fq) 2-dim array
+    bls: (baselines,xyz)
+    s: (sky position,xyz)'''
+    b_s = np.dot(bls, s.T).T
+    b_s.shape = (b_s[0],1,b_s[1]) # shape is (s,fq,bl)
+    fqs.shape = (1,fqs.size,1)
+    A.shape = A.shape + (1,)
+    I.shape = I.shape + (1,)
+    V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s, axis=0).T
+    return V # shape is (bls,fqs)
+
 class Source:
     def __init__(self, ra, dec, jansky=100., index=-1., mfreq=150.):
         '''ra: right ascension (in radians)
