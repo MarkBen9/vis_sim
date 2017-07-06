@@ -18,7 +18,7 @@ def measurement_eq(A, I, s, bls, fqs):
     fqs.shape = (1,fqs.size,1)
     A.shape = A.shape + (1,)
     I.shape = I.shape + (1,)
-    V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s, axis=0).T
+    V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s), axis=0).T
     return V # shape is (bls,fqs)
 
 class Source:

@@ -8,6 +8,18 @@ import unittest
 import simulator
 import numpy as np
 
+class TestFunctions(unittest.TestCase):
+    def test_measurement_eq(self):
+        s = np.array([[1.,0,0],[0.,1,0],[0.,0,1]]) # (3 pointings, xyz)
+        A = np.array([[1.,2],[.5,1.], [.25,.5]]) # (3 pointings, 2 fqs)
+        I = np.array([[1.,1],[1,1], [1,1]]) # (3 pointings, 2 fqs)
+        bls = np.array([[10.,0,0],[0.,10,0],[0.,0,10]]) # (3 bls, xyz)
+        fqs = np.array([.1e9,.2e9]) # (2 fqs) in Hz
+        vis = simulator.measurement_eq(A, I, s, bls, fqs)
+        self.assertEqual(vis.shape, (3,2)) # (3 bls, 2 fqs)
+        self.assertTrue(np.all(np.iscomplex(vis))) # (3 bls, 2 fqs)
+        # XXX test actual values
+
 class TestSource(unittest.TestCase):
 
     
