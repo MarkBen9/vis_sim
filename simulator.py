@@ -9,7 +9,7 @@ def measurement_eq(A, I, s, bls, fqs):
     bls: (baselines,xyz)
     s: (sky position,xyz)'''
     b_s = np.array(np.dot(bls, np.array(s).T)).T
-    b_s.shape = (b_s[0],1,b_s[1]) # shape is (s,fq,bl)
+    b_s.shape = (b_s.shape[0],1,b_s.shape[1]) # shape is (s,fq,bl)
     fqs.shape = (1,fqs.size,1)
     A.shape = A.shape + (1,)
     I.shape = I.shape + (1,)
