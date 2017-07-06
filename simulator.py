@@ -14,7 +14,7 @@ def measurement_eq(A, I, s, bls, fqs):
     bls: (baselines,xyz)
     s: (sky position,xyz)'''
     b_s = np.dot(bls, s.T).T
-    b_s.shape = (b_s[0],1,b_s[1]) # shape is (s,fq,bl)
+    b_s.shape = (b_s.shape[0],1,b_s.shape[1]) # shape is (s,fq,bl)
     fqs.shape = (1,fqs.size,1)
     A.shape = A.shape + (1,)
     I.shape = I.shape + (1,)
@@ -48,9 +48,7 @@ class Source:
         
         return xyz_top
     
-  def measurement_eq(self, antenna1 ,antenna2, lst, lat):
-        
+    def measurement_eq(self, antenna1 ,antenna2, lst, lat):
         t= np.array(antenna1) - np.array(antenna2)   
         x = self.jansky*((self.mfreq*1e6)/(150.0e6))**(self.index)*np.exp(-2j*np.pi*np.dot(t,self.get_source_vector(lst,lat))*self.mfreq*1e6/(3e8))
-        
         return x
