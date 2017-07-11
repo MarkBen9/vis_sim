@@ -50,5 +50,6 @@ class Source:
     
     def measurement_eq(self, antenna1 ,antenna2, lst, lat):
         t= np.array(antenna1) - np.array(antenna2)   
-        x = self.jansky*((self.mfreq*1e6)/(150.0e6))**(self.index)*np.exp(-2j*np.pi*np.dot(t,self.get_source_vector(lst,lat))*self.mfreq*1e6/(3e8))
+        x = self.jansky*((self.mfreq)/(150.0))**(self.index)*np.exp(-2j*
+                np.pi*np.dot(t,self.get_source_vector(lst,lat))*self.mfreq*1e6/(3e8))
         return x
