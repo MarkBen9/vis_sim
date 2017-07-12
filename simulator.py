@@ -20,9 +20,23 @@ def measurement_eq(A, I, s, bls, fqs):
     I.shape = I.shape + (1,)
     V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s), axis=0).T
     return V # shape is (bls,fqs)
-def exponetial ():
-    x = 0
-    return x
+
+def measurement_eq_split(A, I, s, ant_pos, fqs):
+    '''A: (s,fq) 2-dim array
+    I: (s,fq) 2-dim array
+    ant_pos: (antenna's position,xyz)
+    s: (sky position,xyz)'''
+    a_s = np.dot(ant_pos, s.T).T
+    a_s.shape = (a_s.shape[0],1,a_s.shape[1]) # shape is (s,fq,ant_pos)
+    fqs.shape = (1,fqs.size,1)
+    A.shape = A.shape + (1,)
+    I.shape = I.shape + (1,)
+    V_a = (np.sqrt(A) * np.sqrt(I) * np.exp(-2j*np.pi / C * fqs * a_s))
+    V = [np.sum(V_a[...,i]*V_a[...,j].conj(), axis=0 )
+            for i in range(V_a.shape[-1]) for j in range(i,V_a.shape[-1])]
+    
+    return np.array(V) #shape (bls, fqs)
+    
 class Source:
     def __init__(self, ra, dec, jansky=100., index=-1., mfreq=150.):
         '''ra: right ascension (in radians)
