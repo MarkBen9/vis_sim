@@ -1,0 +1,1 @@
+benchmark001.prf -> NANTS=20 NSIDE=64 NFREQS=16
