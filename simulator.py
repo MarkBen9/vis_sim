@@ -20,7 +20,9 @@ def measurement_eq(A, I, s, bls, fqs):
     I.shape = I.shape + (1,)
     V = np.sum(A * I * np.exp(-2j*np.pi / C * fqs * b_s), axis=0).T
     return V # shape is (bls,fqs)
-
+def exponetial ():
+    x = 0
+    return x
 class Source:
     def __init__(self, ra, dec, jansky=100., index=-1., mfreq=150.):
         '''ra: right ascension (in radians)

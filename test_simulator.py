@@ -42,19 +42,16 @@ class TestFunctions(unittest.TestCase):
         self.assertAlmostEqual(np.real(vis[1,1]), (-200.000))
         self.assertAlmostEqual(np.real(vis[1,2]), (-56.250 ))
         
-        self.assertAlmostEqual(np.absolute(vis[0,0]), (112.50000000000031))
+        self.assertAlmostEqual(np.absolute(vis[0,0]), (112.5))
         self.assertAlmostEqual(np.absolute(vis[0,1]), (200.0             ))
-        self.assertAlmostEqual(np.absolute(vis[0,2]), (56.249999999999687))
-        self.assertAlmostEqual(np.absolute(vis[1,0]), (224.99999999999997)) #4th test
+        self.assertAlmostEqual(np.absolute(vis[0,2]), (56.25))
+        self.assertAlmostEqual(np.absolute(vis[1,0]), (225.0)) #4th test
         self.assertAlmostEqual(np.absolute(vis[1,1]), (200.000           ))
         self.assertAlmostEqual(np.absolute(vis[1,2]), (112.5             )) 
         
         self.assertEqual(vis.shape, (2,3)) # (2 bls, 3 fqs)
         
-#        self.assertAlmostEqual/
         #First run had issues, it seems like there is no i(imaginary values)
-        
-
 class TestSource(unittest.TestCase):
 
     def test_init(self):
