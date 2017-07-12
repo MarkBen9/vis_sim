@@ -3,12 +3,12 @@ import aipy
 import numpy as np
 
 #NANTS = 350
-NANTS = 16
+NANTS = 20
 NBLS = NANTS * (NANTS+1) / 2 # for HERA
 #NSIDE = 512
 NSIDE = 64
 #NFREQS = 1024
-NFREQS = 8
+NFREQS = 16
 
 h = aipy.healpix.HealpixMap(nside=NSIDE)
 s = np.array(h.px2crd(np.arange(h.npix()))).T
