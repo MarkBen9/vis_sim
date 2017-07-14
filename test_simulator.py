@@ -17,14 +17,7 @@ class TestFunctions(unittest.TestCase):
         vis = simulator.measurement_eq(A, I, s, bls, fqs)
         self.assertEqual(vis.shape, (3,2)) # (3 bls, 2 fqs)
         self.assertTrue(np.all(np.iscomplex(vis))) # (3 bls, 2 fqs)
-        
-        # XXX test actual values (
-        """Done, but only if I set the Almost Equal when the place of
-        significance to about 5 due to imaginary numbers not fully matching, 
-        this is most noticeable for imaginary numbers almost 0 *which the AlmostEqual
-        takes into account and does neglect this difference* but for '4th' test
-        it was off by the 5th place value"""
-        
+              
         A = np.array([[0.75,1.00,0.75]])
         I = np.array([[150.0,100.0,75.0]])
         s = np.array([[0,1.0,0],[1.0,0,1.0]])
@@ -33,7 +26,6 @@ class TestFunctions(unittest.TestCase):
         bls = np.array([[0.0,10.0,0.0],[1.0,7.0,0.0]])
 
         vis = simulator.measurement_eq(A, I, s, bls, fqs)
-        
         
         self.assertAlmostEqual(np.real(vis[0,0]), (56.250  ))
         self.assertAlmostEqual(np.real(vis[0,1]), (200.000 ))

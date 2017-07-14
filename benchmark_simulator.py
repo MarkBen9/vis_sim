@@ -17,6 +17,7 @@ A = np.random.normal(size=(h.npix(),NFREQS)) + \
     1j*np.random.normal(size=(h.npix(),NFREQS)) # antenna response is complex
 fqs = np.linspace(100e6,200e6,NFREQS)
 antpos = np.random.normal(size=(NANTS,3))
-bls = np.array([ai-aj for i,ai in enumerate(antpos) for aj in antpos[i:]])
+#bls = np.array([ai-aj for i,ai in enumerate(antpos) for aj in antpos[i:]])
 
-vis = simulator.measurement_eq(A, I, s, bls, fqs)
+#vis = simulator.measurement_eq(A, I, s, bls, fqs)
+vis = simulator.measurement_eq_split(A, I, s, antpos, fqs)

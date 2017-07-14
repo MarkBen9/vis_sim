@@ -4,7 +4,7 @@ Created on Tue Jun 27 13:47:35 2017
 @author: champ4
 """
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 C = 3.0e8 # speed of light in m/s
 
@@ -13,6 +13,7 @@ def measurement_eq(A, I, s, bls, fqs):
     I: (s,fq) 2-dim array
     bls: (baselines,xyz)
     s: (sky position,xyz)'''
+    
     b_s = np.dot(bls, s.T).T
     b_s.shape = (b_s.shape[0],1,b_s.shape[1]) # shape is (s,fq,bl)
     fqs.shape = (1,fqs.size,1)
@@ -25,14 +26,24 @@ def measurement_eq_split(A, I, s, ant_pos, fqs):
     '''A: (s,fq) 2-dim array
     I: (s,fq) 2-dim array
     ant_pos: (antenna's position,xyz)
-    s: (sky position,xyz)'''
-    a_s = np.dot(ant_pos, s.T).T
+    s: (sky position,xyz)
+    fqs: (frequency) 1-dim array'''
+    #selection of points of interest
+    s_valid = s[:,2] > 0
+    s_above = s[s_valid,:]
+    A_above = A[s_valid,:]
+    I_above = I[s_valid,:]    
+    #dot product
+    a_s = np.dot(ant_pos, s_above.T).T         
+    #Matrix set up
     a_s.shape = (a_s.shape[0],1,a_s.shape[1]) # shape is (s,fq,ant_pos)
     fqs.shape = (1,fqs.size,1)
-    A.shape = A.shape + (1,)
-    I.shape = I.shape + (1,)
+    A_above.shape = A_above.shape + (1,)
+    I_above.shape = I_above.shape + (1,)
+    #Equation for just an antenna
     V_a = (np.sqrt(A) * np.sqrt(I) * np.exp(-2j*np.pi / C * fqs * a_s))
-    V = [np.sum(V_a[...,i]*V_a[...,j].conj(), axis=0 )
+    #product of two antenna-baseline
+    V = [np.sum(V_a[...,i]*V_a[...,j].conj(), axis=0 ) 
             for i in range(V_a.shape[-1]) for j in range(i,V_a.shape[-1])]
     
     return np.array(V) #shape (bls, fqs)
