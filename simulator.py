@@ -41,7 +41,7 @@ def measurement_eq_split(A, I, s, ant_pos, fqs):
     A_above.shape = A_above.shape + (1,)
     I_above.shape = I_above.shape + (1,)
     #Equation for just an antenna
-    V_a = (np.sqrt(A) * np.sqrt(I) * np.exp(-2j*np.pi / C * fqs * a_s))
+    V_a = (np.sqrt(A_above) * np.sqrt(I_above) * np.exp(-2j*np.pi / C * fqs * a_s))
     #product of two antenna-baseline
     V = [np.sum(V_a[...,i]*V_a[...,j].conj(), axis=0 ) 
             for i in range(V_a.shape[-1]) for j in range(i,V_a.shape[-1])]
