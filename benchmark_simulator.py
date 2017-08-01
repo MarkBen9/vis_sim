@@ -10,6 +10,7 @@ NANTS = 20
 #NSIDE = 512
 NSIDE = 64
 #NFREQS = 1024
+
 NFREQS = 16
 
 h = aipy.healpix.HealpixMap(nside=NSIDE)
@@ -29,4 +30,3 @@ cProfile.run('vis2 = simulator.measurement_eq_split(A, I, s, antpos, fqs)','meas
 
 #s1 = pstats.Stats('measurement_eq_split.prf')
 s2 = pstats.Stats('measurement_eq.prf')
-
